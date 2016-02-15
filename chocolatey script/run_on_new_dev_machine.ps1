@@ -1,0 +1,2 @@
+iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1'))
+choco install rdcman git SourceTree adobereader dotTrace dotPeek winmerge fiddler GoogleChrome Firefox notepadplusplus vlc urlrewrite 7zip katmouse lockhunter puretext kdiff3 linqpad
