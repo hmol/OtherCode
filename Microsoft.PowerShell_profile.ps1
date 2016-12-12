@@ -22,3 +22,19 @@ function BackOneDir{
     cd $lastDir
 }
 Set-Alias cd- BackOneDir
+
+# Helper functions to easily set the environment variable for $Env:ASPNETCORE_ENVIRONMENT
+# Keep finding myself switching this variable a lot
+function SetDevEnvironment(){
+	$Env:ASPNETCORE_ENVIRONMENT = "Development"
+	Write-Host "ASPNETCORE_ENVIRONMENT: "$Env:ASPNETCORE_ENVIRONMENT
+}
+
+function SetProdEnvironment(){
+	$Env:ASPNETCORE_ENVIRONMENT = "Production"
+	Write-Host "ASPNETCORE_ENVIRONMENT: "$Env:ASPNETCORE_ENVIRONMENT
+	
+}
+
+Set-Alias set-env-dev SetDevEnvironment
+Set-Alias set-env-prod SetProdEnvironment
