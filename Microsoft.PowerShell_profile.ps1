@@ -38,3 +38,13 @@ function SetProdEnvironment(){
 
 Set-Alias set-env-dev SetDevEnvironment
 Set-Alias set-env-prod SetProdEnvironment
+
+#########################################################
+# Delete bin,obj folders
+#########################################################
+
+function DeleteBinAndObj(){
+	Get-ChildItem .\ -include bin,obj -Recurse | foreach ($_) { remove-item $_.fullname -Force -Recurse; Write-Output($_.fullname); }
+}
+
+Set-Alias deletebin DeleteBinAndObj
