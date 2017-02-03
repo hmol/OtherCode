@@ -48,3 +48,28 @@ function DeleteBinAndObj(){
 }
 
 Set-Alias deletebin DeleteBinAndObj
+
+#########################################################
+# Delete *.lock.json files
+#########################################################
+function DeleteLockFiles(){
+	Get-ChildItem -Path . -Include *.lock.json -Recurse | foreach { echo "$_"; $_.Delete() }
+}
+
+Set-Alias deletelock DeleteLockFiles
+
+
+#########################################################
+# Help
+#########################################################
+
+function GetHelp(){
+	Write-Host "deletebin : delete all bin and obj folders recursive from where you are standing."
+	Write-Host "deletelock : delete all *.lock.json files recursive from where you are standing."
+	Write-Host "dnr : dotnet run"
+	Write-Host "set-env-dev : set dotnet evn variable to dev"
+	Write-Host "set-env-prod : set dotnet evn variable to prod"
+	Write-Host "cd- : go back to previous dir"
+}
+
+Set-Alias helpme GetHelp
