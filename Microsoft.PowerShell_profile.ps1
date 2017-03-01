@@ -91,6 +91,23 @@ function SearchReplace(){
 Set-Alias search-replace SearchReplace
 
 #########################################################
+# Rename files with search replace in filename
+#########################################################
+function SearchReplaceFileName(){
+	$oldString = Read-Host -Prompt 'Input old text'
+	$newString = Read-Host -Prompt 'Input new text'
+	
+	$files = Get-ChildItem -Path .
+	foreach ($file in $files) 
+	{
+		$newFileName=$file.Name.Replace($oldString, $newString)   
+		Rename-Item $file $newFileName
+	}
+}
+
+Set-Alias search-replace-filename SearchReplaceFileName
+
+#########################################################
 # Help
 #########################################################
 
@@ -102,6 +119,7 @@ function GetHelp(){
 	Write-Host "set-env-prod : set dotnet evn variable to prod"
 	Write-Host "cd- : go back to previous dir"
 	Write-Host "search-replace : searchreplace recurse"
+	Write-Host "search-replace-filename : searchreplace filename"
 }
 
 Set-Alias helpme GetHelp
