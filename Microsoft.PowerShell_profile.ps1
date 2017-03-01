@@ -2,6 +2,9 @@
 # Go to previous dir. Put in about profile %USERNAME%\Documents\WindowsPowerShell\
 # ( https://technet.microsoft.com/en-us/library/hh847857.aspx )
 
+#########################################################
+# cd -
+#########################################################
 [System.Collections.Stack]$GLOBAL:dirStack = @()
 $GLOBAL:oldDir = ''
 $GLOBAL:addToStack = $true
@@ -22,9 +25,9 @@ function BackOneDir{
     cd $lastDir
 }
 Set-Alias cd- BackOneDir
-
-# Helper functions to easily set the environment variable for $Env:ASPNETCORE_ENVIRONMENT
-# Keep finding myself switching this variable a lot
+#########################################################
+# Environments
+#########################################################
 function SetDevEnvironment(){
 	$Env:ASPNETCORE_ENVIRONMENT = "Development"
 	Write-Host "ASPNETCORE_ENVIRONMENT: "$Env:ASPNETCORE_ENVIRONMENT
@@ -38,6 +41,16 @@ function SetProdEnvironment(){
 
 Set-Alias set-env-dev SetDevEnvironment
 Set-Alias set-env-prod SetProdEnvironment
+
+#########################################################
+# Dotnet run
+#########################################################
+
+function DotNetRun(){
+	dotnet run
+}
+
+Set-Alias dnr DotNetRun
 
 #########################################################
 # Delete bin,obj folders
@@ -58,6 +71,24 @@ function DeleteLockFiles(){
 
 Set-Alias deletelock DeleteLockFiles
 
+#########################################################
+# Recurse search replace string
+#########################################################
+function SearchReplace(){
+	$oldString = Read-Host -Prompt 'Input old text'
+	$newString = Read-Host -Prompt 'Input new text'
+	
+	$files = Get-ChildItem . -rec
+	foreach ($file in $files)
+	{
+		Write-Output $file.PSPath
+		(Get-Content $file.PSPath) |
+		Foreach-Object { $_ -replace $oldString, $newString } |
+		Set-Content $file.PSPath
+	}
+}
+
+Set-Alias search-replace SearchReplace
 
 #########################################################
 # Help
@@ -70,6 +101,7 @@ function GetHelp(){
 	Write-Host "set-env-dev : set dotnet evn variable to dev"
 	Write-Host "set-env-prod : set dotnet evn variable to prod"
 	Write-Host "cd- : go back to previous dir"
+	Write-Host "search-replace : searchreplace recurse"
 }
 
 Set-Alias helpme GetHelp
