@@ -1,0 +1,2 @@
+#powershell, see git history based on name
+git log --pretty=format:"%ad - %an - %s" | Select-String -Pattern "MyName"
