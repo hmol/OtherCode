@@ -1,2 +1,2 @@
-#powershell, see git history based on name
-git log --pretty=format:"%ad - %an - %s" | Select-String -Pattern "MyName"
+#powershell, git history based on name, first 30 lines
+git log --pretty=format:"%ad - %an - %s" | Select-String -Pattern "MyName" | Select -First 30
